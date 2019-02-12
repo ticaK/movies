@@ -25,7 +25,7 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        //
+     return view('movies.create');
     }
 
     /**
@@ -36,7 +36,14 @@ class MoviesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+            $request->validate([
+                'title'=>'required',
+                'genre'=>'required'
+            ]);
+            Movie::create($request->all());
+            return redirect('/movies');
+        
     }
 
     /**
