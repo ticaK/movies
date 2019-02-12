@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Movie;
+use App\Comment;
+use App\Http\Requests\CreateCommentRequest;
 
 class MoviesController extends Controller
 {
@@ -91,5 +93,15 @@ class MoviesController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function addComment(CreateCommentRequest $request,$id)
+    {
+        Comment::create([
+            'movie_id'=>$id,
+            'content'=>$request->content
+            
+            
+        ]);
+        return redirect()->back();
     }
 }

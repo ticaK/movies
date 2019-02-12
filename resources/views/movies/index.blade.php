@@ -11,4 +11,6 @@
     @else 
         <p>No posts found</p>
     @endif
+
+    
 @endsection
