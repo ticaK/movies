@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MoviesController@index');
 
 Route::resource('movies','MoviesController');
 
+Route::resource('/sidebar','SidebarController@index');
+
 Route::post('movies/{id}/comments','MoviesController@addComment')
- ->name('movies.comment');
+->name('movies.comment');
+
+Route::get('/genres/{genre}', 'GenresController@show');

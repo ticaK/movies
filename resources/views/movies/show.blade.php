@@ -3,7 +3,7 @@
   @section('content')
 
     <h3>Title:{{$movie->title}}</h3>
-    <p>Genre:{{$movie->genre}}</p>
+    <p>Genre:<a href="/genres/{{$movie->genre}}">{{$movie->genre}}</a></p>
     <p>Director:{{$movie->director}}</p>
     <p>Year:{{$movie->year}}</p>
     <p>Storyline:{{$movie->storyline}}</p>
@@ -20,17 +20,19 @@
             <form method = "POST" action = "{{route('movies.comment',['id'=>$movie->id])}}"> 
                @csrf
                 
-                      <div class="form-group row">
-                        <label for="textarea" class="col-4 col-form-label">Comment</label>
-                        <textarea
-                          id="textarea"
-                          name="text"
-                          cols="40"
-                          rows="5"
-                          class="form-control {{ $errors->has('text') ? 'is-invalid' : '' }}"></textarea>
-                          @include('partials.invalid-feedback', ['field' => 'text'])
-                      
-                  </div>
+               <div class="form-group">
+                <label for="textarea" class="col-4 col-form-label">Comment</label>
+                <div class="col-8">
+                    <textarea id="textarea"
+                     name="content" 
+                     cols="40" 
+                     rows="5"
+                      class="form-control {{$errors->has('content') ? 'is-invalid' : ''}}">{{ old('content') }}</textarea>
+                    @include('partials.invalid-feedback',['field'=>'content']) 
+        
+                </div>
+                </div>
+        
         
                   <div class="form-group row">
                         <div class="offset-4 col-8">
@@ -39,6 +41,7 @@
                 </div>
         
             </form>
+            
         </div>
 
 

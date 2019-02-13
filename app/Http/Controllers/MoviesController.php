@@ -16,7 +16,7 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movie::all();        
+        $movies = Movie::orderBy('title','asc')->get();  
         return view('movies.index')->with('movies',$movies);
     }
 
@@ -39,13 +39,16 @@ class MoviesController extends Controller
     public function store(Request $request)
     {
     
-            $request->validate([
-                'title'=>'required',
-                'genre'=>'required'
-            ]);
-            Movie::create($request->all());
-            return redirect('/movies');
-        
+        $request->validate([
+            'title'=>'required',
+            'genre'=>'required',
+            'year' => 'digits:4|integer|min:1900|max:'.(date('Y')),
+            'storyline'=>'max:1000'
+        ]);
+            
+        Movie::create($request->all());
+        return redirect('/movies');
+
     }
 
     /**
@@ -98,9 +101,7 @@ class MoviesController extends Controller
     {
         Comment::create([
             'movie_id'=>$id,
-            'content'=>$request->content
-            
-            
+            'content'=>$request->content  
         ]);
         return redirect()->back();
     }

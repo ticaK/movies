@@ -1,16 +1,21 @@
 @extends('layouts.master')
   @section('content')
-    <h1>Movies</h1>
-    @if(count($movies)>0)
-        @foreach ($movies as $movie)
+    <div class="container">
+        <div class="row">
             <div>
-                <h3><a href="/movies/{{$movie->id}}">{{$movie->title}}</a></h3>
-                <p>{{$movie->storyline}}</p>
+                <h1>Movies</h1>
+                @if(count($movies)>0)
+                    @foreach ($movies as $movie)
+                        <div class>
+                            <h3><a href="/movies/{{$movie->id}}">{{$movie->title}}</a></h3>
+                            <p>{{str_limit($movie->storyline, 60, '...')}} </p>
+                        </div>
+                    @endforeach
+                @else 
+                    <p>No posts found</p>
+                @endif
             </div>
-        @endforeach
-    @else 
-        <p>No posts found</p>
-    @endif
-
-    
-@endsection
+        <div>
+        @include('layouts.sidebar')
+    </div>  
+  @endsection
